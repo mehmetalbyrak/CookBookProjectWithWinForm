@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using DataAccessLayer.Contracts;
 using DomainModel.Models;
 using System;
 using System.Collections.Generic;
@@ -9,9 +10,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAccessLayer
+namespace DataAccessLayer.Repositories
 {
-    public class IngredientsDataAccess
+    public class IngredientsRepository : IIngredientsRepository
     {
         public void AddIngredient(Ingredient ingredient)
         {
@@ -33,7 +34,7 @@ namespace DataAccessLayer
             using (IDbConnection connection = new SqlConnection(ConnectionHelper.ConnectingString))
             {
                 return connection.Query<Ingredient>(query).ToList();
-                
+
             }
         }
     }
