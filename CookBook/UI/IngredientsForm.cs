@@ -15,11 +15,11 @@ namespace CookBook.UI
 {
     public partial class IngredientsForm : Form
     {
-        private readonly IIngredientsRepository _ingredientsRepository; // global variable (once)
-        public IngredientsForm()
+        private readonly IIngredientsRepository _ingredientsRepository; 
+        public IngredientsForm(IIngredientsRepository ingredientsRepository)
         {
             InitializeComponent();
-            _ingredientsRepository = new IngredientsRepository();
+            _ingredientsRepository = ingredientsRepository;
         }
 
         private void AddToFridgeBtn_Click(object sender, EventArgs e)

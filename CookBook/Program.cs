@@ -1,19 +1,41 @@
 using CookBook.UI;
+using DataAccessLayer.Contracts;
+using DataAccessLayer.Repositories;
+using Microsoft.Extensions.DependencyInjection;
+using System.Configuration;
+using System.ServiceProcess;
 
 namespace CookBook
 {
     internal static class Program
     {
-        /// <summary>
-        ///  The main entry point for the application.
-        /// </summary>
+        
         [STAThread]
         static void Main()
         {
-            // To customize application configuration such as set high DPI settings or default font,
-            // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new IngredientsForm());
+
+            ServiceCollection services = ConfigureServices();
+            ServiceProvider serviceProvider = services.BuildServiceProvider();
+
+            var startForm = serviceProvider.GetRequiredService<IngredientsForm>();
+            Application.Run(startForm);
         }
+
+        static ServiceCollection ConfigureServices()
+        {
+            ServiceCollection services = new ServiceCollection();
+
+            if (ConfigurationManager.AppSettings["repositoryType"] == "txt")
+                services.AddTransient<IIngredientsRepository>(_ => new IngredientsTxtRepository());
+            else
+                services.AddTransient<IIngredientsRepository>(_ => new IngredientsRepository());
+
+            services.AddTransient<IngredientsForm>();
+
+            return services;
+
+        }
+
     }
 }
