@@ -15,7 +15,7 @@ namespace CookBook.UI
 {
     public partial class IngredientsForm : Form
     {
-        private readonly IIngredientsRepository _ingredientsRepository; 
+        private readonly IIngredientsRepository _ingredientsRepository;
         public IngredientsForm(IIngredientsRepository ingredientsRepository)
         {
             InitializeComponent();
@@ -28,7 +28,7 @@ namespace CookBook.UI
                 KcalPer100gNum.Value, PricePer100gNum.Value);
 
 
-            
+
             _ingredientsRepository.AddIngredient(ingredient);
 
             ClearAllFields();
@@ -43,6 +43,7 @@ namespace CookBook.UI
             WeightNum.Value = 1;
             KcalPer100gNum.Value = 0;
             PricePer100gNum.Value = 0;
+            SearchTxt.Text = string.Empty;
         }
 
         private void IngredientsForm_Load(object sender, EventArgs e)
@@ -54,7 +55,7 @@ namespace CookBook.UI
 
         private void RefreshGridData()
         {
-            IngredientsGrid.DataSource = _ingredientsRepository.GetIngredients();
+            IngredientsGrid.DataSource = _ingredientsRepository.GetIngredients(SearchTxt.Text);
         }
 
         private void CustomizeGridAppearance()
@@ -103,6 +104,18 @@ namespace CookBook.UI
             IngredientsGrid.Columns.Clear();
             IngredientsGrid.Columns.AddRange(dataGridViewColumns);
 
+        }
+
+
+
+        private void ClearAllFieldsBtn_Click(object sender, EventArgs e)
+        {
+            ClearAllFields();
+        }
+
+        private void SearchTxt_TextChanged(object sender, EventArgs e)
+        {
+            RefreshGridData();
         }
     }
 }

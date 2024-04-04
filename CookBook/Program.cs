@@ -26,9 +26,6 @@ namespace CookBook
         {
             ServiceCollection services = new ServiceCollection();
 
-            if (ConfigurationManager.AppSettings["repositoryType"] == "txt")
-                services.AddTransient<IIngredientsRepository>(_ => new IngredientsTxtRepository());
-            else
                 services.AddTransient<IIngredientsRepository>(_ => new IngredientsRepository());
 
             services.AddTransient<IngredientsForm>();

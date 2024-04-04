@@ -9,20 +9,12 @@ namespace DataAccessLayer
 {
     static internal class ConnectionHelper
     {
-        //internal static string GetConnectionString() // more robust but we chose below approach
-        //{
-        //    return ConfigurationManager.
-        //        ConnectionStrings["CookBookConnectionString"].ConnectionString;
-        //}
-
-        internal static string ConnectingString
+        internal static string ConnectionString
         {
             get
             {
-                return ConfigurationManager.
-                ConnectionStrings["CookBookConnectionString"].ConnectionString;
+                return ConfigurationManager.ConnectionStrings["CookBookConnectionString"].ConnectionString;
             }
         }
-
     }
 }
