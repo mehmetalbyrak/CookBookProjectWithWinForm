@@ -19,7 +19,7 @@ namespace DataAccessLayer.Repositories
             string query = @"insert into Ingredients 
                 (Name, Weight, KcalPer100g, PricePer100g, Type) 
                 values (@Name, @Weight, @KcalPer100g, @PricePer100g, @Type)";
-                   
+
 
             using (IDbConnection connection = new SqlConnection(ConnectionHelper.ConnectionString))
             {
@@ -32,11 +32,24 @@ namespace DataAccessLayer.Repositories
             string query = "select * from Ingredients";
             if (!string.IsNullOrEmpty(name))
                 query += $" where Name like '{name}%'";
- 
+
 
             using (IDbConnection connection = new SqlConnection(ConnectionHelper.ConnectionString))
             {
                 return (await connection.QueryAsync<Ingredient>(query)).ToList();
+            }
+        }
+
+        public async Task DeleteIngredient(Ingredient ingredient)
+        {
+            string query = @$"delete from Ingredients where Id = {ingredient.Id}";
+            // string query = @$"delete from Ingredients where Id = @Id";
+
+
+            using (IDbConnection connection = new SqlConnection(ConnectionHelper.ConnectionString))
+            {
+                await connection.ExecuteAsync(query);
+                // await connection.ExecuteAsync(query, ingredient); --> other option
             }
         }
 
