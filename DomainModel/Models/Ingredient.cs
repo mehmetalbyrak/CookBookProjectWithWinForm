@@ -16,13 +16,17 @@ namespace DomainModel.Models
         public decimal PricePer100g { get; set; }
 
         public Ingredient(string name, string type, decimal weight, decimal kcalPer100g,
-            decimal pricePer100g) // parameritize constructor
+            decimal pricePer100g, int? id=null) // parameritize constructor
         {
             Name = name;
             Type = type;
             Weight = weight;
             KcalPer100g = kcalPer100g;
             PricePer100g = pricePer100g;
+            if (id != null)
+            {
+                Id = (int)id;
+            }
         }
 
         public Ingredient()
