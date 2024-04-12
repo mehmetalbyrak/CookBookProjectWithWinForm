@@ -164,20 +164,7 @@ namespace CookBook.UI
                 isValid = false;
                 message += "Please enter name. \n\n";
             }
-            else
-            {
-                List<Ingredient> allIngredients = (List<Ingredient>)
-                    IngredientsGrid.DataSource;
 
-                foreach (Ingredient ingredient in allIngredients)
-                {
-                    if (ingredient.Name.ToLower() == NameTxt.Text.ToLower())
-                    {
-                        MessageBox.Show("That ingredient already exist!", "Form is not valid");
-                        return false;
-                    }
-                }
-            }
 
             if (string.IsNullOrEmpty(TypeTxt.Text))
             {

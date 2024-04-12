@@ -92,7 +92,7 @@
             label5.Name = "label5";
             label5.Size = new Size(129, 30);
             label5.TabIndex = 4;
-            label5.Text = "Prize (100g)";
+            label5.Text = "Price (100g)";
             // 
             // NameTxt
             // 
