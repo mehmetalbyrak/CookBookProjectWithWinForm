@@ -16,14 +16,35 @@ namespace DataAccessLayer.Repositories
     {
         public async Task AddIngredient(Ingredient ingredient)
         {
-            string query = @"insert into Ingredients 
+            try
+            {
+                string query = @"insert into Ingredients 
                 (Name, Weight, KcalPer100g, PricePer100g, Type) 
                 values (@Name, @Weight, @KcalPer100g, @PricePer100g, @Type)";
 
 
-            using (IDbConnection connection = new SqlConnection(ConnectionHelper.ConnectionString))
+                using (IDbConnection connection = new SqlConnection(ConnectionHelper.ConnectionString))
+                {
+                    await connection.ExecuteAsync(query, ingredient);
+                }
+            }
+            catch (SqlException ex)
             {
-                await connection.ExecuteAsync(query, ingredient);
+                string errorMessage = "";
+                if(ex.Number == 2627)
+                {
+                    errorMessage = "That ingredient already exists. ";
+                }
+                else
+                {
+                    errorMessage = "An error happened in the database. ";
+                }
+
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = "And error happened while adding ingredient. ";
+                // TODO: Show error message to the user 
             }
         }
 
