@@ -71,8 +71,12 @@ namespace CookBook.UI
 
         private async void RefreshGridData()
         {
-            IngredientsGrid.DataSource = await _ingredientsRepository.GetIngredients(SearchTxt.Text);
+            var ingredients = await _ingredientsRepository.GetIngredients(SearchTxt.Text);
+            ingredients = ingredients.OrderBy(i => i.Name).ToList();
+
+            IngredientsGrid.DataSource = ingredients;
         }
+
 
         private void CustomizeGridAppearance()
         {
@@ -260,6 +264,9 @@ namespace CookBook.UI
             _ingredientToEditId = 0;
         }
     }
+
+    
+
 }
 
 
