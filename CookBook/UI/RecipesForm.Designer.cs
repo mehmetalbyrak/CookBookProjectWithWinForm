@@ -86,6 +86,7 @@
             AddRecipeTypeBtn.TabIndex = 4;
             AddRecipeTypeBtn.Text = "Add";
             AddRecipeTypeBtn.UseVisualStyleBackColor = true;
+            AddRecipeTypeBtn.Click += AddRecipeTypeBtn_Click;
             // 
             // RecipesGrid
             // 

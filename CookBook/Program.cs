@@ -32,6 +32,7 @@ namespace CookBook
 
             services.AddTransient<IngredientsForm>();
             services.AddTransient<RecipesForm>();
+            services.AddTransient<RecipeTypesFrom>();
 
             return services;
 
