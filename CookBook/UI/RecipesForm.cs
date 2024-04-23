@@ -1,4 +1,5 @@
 ﻿using DataAccessLayer.Contracts;
+using DomainModel.Models;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -16,11 +17,14 @@ namespace CookBook.UI
     {
         private readonly IRecipeTypesRepository _recipeTypesRepository;
         private readonly IServiceProvider _serviceProvider;
-        public RecipesForm(IRecipeTypesRepository recipeTypesRepository, IServiceProvider serviceProvider)
+        private readonly IRecipesRepository _recipesRepository;
+        public RecipesForm(IRecipeTypesRepository recipeTypesRepository, IServiceProvider serviceProvider,
+            IRecipesRepository recipesRepository)
         {
             InitializeComponent();
             _recipeTypesRepository = recipeTypesRepository;
             _serviceProvider = serviceProvider;
+            _recipesRepository = recipesRepository;
         }
 
         private async void RefreshRecipeTypes()
@@ -39,6 +43,15 @@ namespace CookBook.UI
             RecipeTypesFrom form = _serviceProvider.GetRequiredService<RecipeTypesFrom>();
             form.FormClosed += (sender, e) => RefreshRecipeTypes();
             form.ShowDialog();
+        }
+
+        private async void AddRecipeBtn_Click(object sender, EventArgs e)
+        {
+            byte[] image = null;
+            int recipeTypeId = ((RecipeType)RecipeTypesCbx.SelectedItem).Id;
+            Recipe recipe = new Recipe(NameTxt.Text, DescriptionTxt.Text, image, recipeTypeId);
+            
+            await _recipesRepository.AddRecipe(recipe);
         }
     }
 }
