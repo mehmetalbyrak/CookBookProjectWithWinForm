@@ -42,7 +42,7 @@ This project is a Windows Forms application for managing and viewing recipes. It
 4. **Manage Ingredients**
    View ingredients and sort them by name.
 
-## Technology Used
+## Architectural and Technological Overview
 
 - **Dapper**: Used for efficient and simple database operations.
 - **Layered Architecture**: The project follows a layered architecture to separate concerns, making the codebase more maintainable and scalable.
@@ -63,8 +63,8 @@ This project is licensed under the MIT License. For more information, see the LI
 
 ---
 
-For any questions or feedback, please contact us.
+For any questions or feedback, please contact me.
 
 Thank you!
 
-Mehmet Albayrak
+Mehmet
